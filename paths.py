@@ -10,7 +10,7 @@ def get_file_list():
 
 def listFiles(dir):
     basedir = dir
-    subdirlist = []         # 
+    subdirlist = []
     for item in os.listdir(dir):
         if os.path.isfile(os.path.join(dir,item)):
             if item[ len(item)-4 : len(item)] == ".mp3":

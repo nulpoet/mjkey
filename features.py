@@ -13,6 +13,11 @@ def report_features(songlist):
 	feature_map = {};
 	mood_map = {};
 	
+	mood_map['energetic'] = 0
+	mood_map['positive'] = 1
+	mood_map['dark'] = 2
+	mood_map['calm'] = 3
+
 	feature_map['danceability'] = 0
 	feature_map['energy'] = 1
 	feature_map['loudness'] = 2
@@ -89,9 +94,11 @@ def report_features(songlist):
 		song_feature[song]['features']['timbre10'] = timbre_vec[10]
 		song_feature[song]['features']['timbre11'] = timbre_vec[11]
 		song_feature[song]['features']['time_sign'] = dict_feat['response']['track']['audio_summary']['time_signature']
+		song_feature[song]['category'] = os.path.split(os.path.split(song)[0])[1]
+		song_feature[song]['path'] = song
 		
 		
-		f.write(song+"\n"+json.dumps(song_feature[song])+"\n\n")
+		f.write(json.dumps(song_feature[song])+"\n\n")
 
 		f.close()
 		
