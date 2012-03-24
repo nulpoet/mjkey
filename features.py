@@ -4,6 +4,8 @@ import json
 import urllib2
 import pickle
 import time
+import paths
+import os
 
 def report_features(songlist):
 	song_map= {};
@@ -37,11 +39,12 @@ def report_features(songlist):
 		#if(song[len(song)-4 : len(song)-1] != 'mp3'):
 		#	continue
 		
-		f = open("/home/rohit/Desktop/dump.txt", "a");
+		f = open(os.path.join(home_path, "dump.txt"), "a");
 
 		s = "curl -X POST -H \"Content-Type:application/octet-stream\" \"http://developer.echonest.com/api/v4/track/upload?api_key=OXT5F9WRYSKSVOK71&filetype=mp3\" --data-binary \"@" + song + "\"";
 	
 		upload_output = commands.getoutput(s);
+		print upload_output
 		temp = json.loads(upload_output[upload_output.find("{"):upload_output.__len__()]);
 		#output_split = upload_output.split("\"");
 		md5 = temp['response']['track']['md5']
@@ -88,7 +91,7 @@ def report_features(songlist):
 		song_feature[song]['features']['time_sign'] = dict_feat['response']['track']['audio_summary']['time_signature']
 		
 		
-		f.write(song+"\n"+pickle.dumps(song_feature[song])+"\n\n")
+		f.write(song+"\n"+json.dumps(song_feature[song])+"\n\n")
 
 		f.close()
 		
@@ -100,3 +103,7 @@ def report_features(songlist):
 #list_song = ["/home/rohit/Music/Rockstar (2011)/10 - Rockstar - Saadda Haq !Ezio!.mp3"]
 #print report_features(list_song);
 
+home_path = commands.getoutput("echo $HOME")
+lists = paths.get_file_list()
+features = report_features(lists)
+print features
