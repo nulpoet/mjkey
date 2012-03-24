@@ -13,7 +13,8 @@ def listFiles(dir):
     subdirlist = []         # 
     for item in os.listdir(dir):
         if os.path.isfile(os.path.join(dir,item)):
-            files_list.append(os.path.join(dir,item))
+            if item[ len(item)-4 : len(item)] == ".mp3":
+                files_list.append(os.path.join(dir,item))
         else:
             subdirlist.append(os.path.join(basedir, item))
 
