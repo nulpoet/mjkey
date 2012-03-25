@@ -32,13 +32,13 @@ if __name__ == "__main__":
 #    print music_files
     music_files = tmp
 
-    for a in music_files:
-        if tested_files.__contains__(a):
+    for path in music_files:
+        if tested_files.__contains__(path):
             continue
         else:
-            print a
-            pred.pred(a)
-        
+            print path
+            mood = pred.pred(path)
+            add_to_playlist(path, mood)
     
 #    mood = pred.pred(fpath)
 #    add_to_playlist(mood, fpath)
