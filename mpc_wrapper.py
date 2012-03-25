@@ -43,7 +43,7 @@ if __name__ == "__main__":
 				print path
 				mood = pred.pred(path)
 				add_to_playlist(path[19:], mood)
-		time.sleep(1)
+		time.sleep(5)
 #    mood = pred.pred(fpath)
 #    add_to_playlist(mood, fpath)
     
