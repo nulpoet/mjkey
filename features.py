@@ -7,7 +7,7 @@ import time
 import paths
 import os
 
-def report_features(songlist):
+def report_features(songlist, dump=True):
 	song_map= {};
 	song_feature = {};
 	feature_map = {};
@@ -44,7 +44,9 @@ def report_features(songlist):
 		#if(song[len(song)-4 : len(song)-1] != 'mp3'):
 		#	continue
 		
-		f = open(os.path.join(home_path, "dump.txt"), "a");
+		f = None
+		if dump:
+			f = open(os.path.join(home_path, "dump.txt"), "a");
 
 		s = "curl -X POST -H \"Content-Type:application/octet-stream\" \"http://developer.echonest.com/api/v4/track/upload?api_key=OXT5F9WRYSKSVOK71&filetype=mp3\" --data-binary \"@" + song + "\"";
 	
@@ -98,9 +100,9 @@ def report_features(songlist):
 		song_feature[song]['path'] = song
 		
 		
-		f.write(json.dumps(song_feature[song])+"\n\n")
-
-		f.close()
+		if dump:
+			f.write(json.dumps(song_feature[song])+"\n\n")
+			f.close()
 		
 		print time.asctime(), song, "done"
 		
@@ -110,7 +112,8 @@ def report_features(songlist):
 #list_song = ["/home/rohit/Music/Rockstar (2011)/10 - Rockstar - Saadda Haq !Ezio!.mp3"]
 #print report_features(list_song);
 
-home_path = commands.getoutput("echo $HOME")
-lists = paths.get_file_list()
-features = report_features(lists)
-print features
+if __name__ == '__main__':
+	home_path = commands.getoutput("echo $HOME")
+	lists = paths.get_file_list()
+	features = report_features(lists)
+	print features
