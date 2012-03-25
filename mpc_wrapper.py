@@ -34,12 +34,12 @@ if __name__ == "__main__":
 
     for path in music_files:
         if tested_files.__contains__(path):
-            continue
+			print "Done", path
         else:
-            print path
-            mood = pred.pred(path)
-            add_to_playlist(path, mood)
-    
+			print path
+			mood = pred.pred(path)
+			add_to_playlist(path[19:], mood)
+			    
 #    mood = pred.pred(fpath)
 #    add_to_playlist(mood, fpath)
     
